@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Sonata</h1>
   <p>
-    <img src="https://img.shields.io/badge/version-0.5-blue?style=flat-square" alt="Version">
+    <img src="https://img.shields.io/badge/version-0.5.1-blue?style=flat-square" alt="Version">
     <img src="https://img.shields.io/badge/release-initial-green?style=flat-square" alt="Initial release">
     <img src="https://img.shields.io/badge/keys-28-blue?style=flat-square" alt="Keys">
     <img src="https://img.shields.io/badge/base-Colemak--DH-purple?style=flat-square" alt="Base">
@@ -22,7 +22,7 @@
 
 ## ⚠ Project status
 
-**v0.5 is the initial public release of the Sonata specification.** This repository defines the Sonata Base Layer and documents how all other layers are inherited from [Cadence v1.11.1](https://github.com/one7two99/cadence).
+**v0.5.0 was the initial public release of the Sonata specification** (current version: v0.5.1, a documentation update). This repository defines the Sonata Base Layer and documents how all other layers are inherited from [Cadence v1.11.1](https://github.com/one7two99/cadence).
 
 Sonata currently has **no dedicated Vial configuration**. It is a layout specification, not a flash-ready build. The next milestone, **v1.0**, will be tagged when a dedicated Vial configuration exists. From that point on, documentation will track two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version.
 
@@ -187,7 +187,17 @@ For all non-Base layer information, refer to **[Cadence's documentation](https:/
 
 ## ✦ Versioning
 
-This is **v0.5**, the initial public release. Sonata uses a `0.x` series during the specification phase. The next milestone is **v1.0**, tagged when a dedicated Vial configuration exists.
+The current release is **v0.5.1**. Sonata uses a `0.x` series during the specification phase. The next major milestone is **v1.0**, tagged when a dedicated Vial configuration exists.
+
+### Versioning policy
+
+| Change type | Bump | Example |
+|---|---|---|
+| Documentation update (text, diagrams, fixes) | Patch | v0.5.0 → v0.5.1 |
+| Configuration change (Base Layer, triggers, HRM) | Minor | v0.5.0 → v0.6.0 |
+| Dedicated Vial configuration available | Major | v0.x.y → v1.0.0 |
+
+**v0.5.0** was the initial public release. **v0.5.1** (this version) is a documentation update — the Base Layer keyboard visualisation in `index.html` now correctly places the thumb keys (Spc/Tab on the left, Ent/Bsp on the right) below the index columns, matching the physical Ferris Sweep geometry.
 
 From v1.0 onward, documentation will reference two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version (whose layer contents Sonata adopts).
 

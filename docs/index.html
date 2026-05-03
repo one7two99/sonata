@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Sonata v0.5 — Base Layer Specification</title>
+<title>Sonata v0.5.1 — Base Layer Specification</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,10 +35,14 @@ td{padding:7px 12px;border-bottom:1px solid #ece9e1}
 .design-box{background:#fff;border:1px solid #E8E6E0;border-radius:10px;padding:20px 22px;margin:14px 0}
 .status-box{background:#fff8ee;border:1px solid #f0d59c;border-left:5px solid #d9a93b;border-radius:8px;padding:18px 22px;margin:24px 0;color:#5C3D00}
 .status-box h3{margin-top:0;color:#5C3D00;font-size:16px}
-.kb{display:flex;justify-content:space-between;gap:32px;margin:18px 0;font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px}
+.kb{display:flex;justify-content:center;gap:32px;margin:18px 0;font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px}
 .kb-half{display:flex;flex-direction:column;gap:6px}
+.kb-half-l .key-row{justify-content:flex-start}
+.kb-half-r .key-row{justify-content:flex-end}
+.kb-half-r .key-thumbs{justify-content:flex-start}
 .key-row{display:flex;gap:6px;justify-content:center}
 .key{position:relative;width:62px;height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border:1.5px solid #c5cad4;border-radius:8px;color:#1a3050;font-weight:600}
+.key-spacer{width:62px;height:62px;visibility:hidden;flex-shrink:0}
 .key-bdg{position:absolute;top:-7px;font-size:9px;padding:1px 5px;border-radius:7px;font-weight:700;letter-spacing:0.3px}
 .key-bdg-td{left:-5px;background:#E1F5EE;color:#085041;border:1px solid #5DCAA5}
 .key-bdg-mod{right:-5px;background:#F0E8F5;color:#4B2670;border:1px solid #B796D9}
@@ -69,7 +73,7 @@ a:hover{color:#0a4d99}
 </div>
 </div>
 <div class="badges">
-<span class="badge badge-blue">v0.5</span>
+<span class="badge badge-blue">v0.5.1</span>
 <span class="badge badge-green">Initial release</span>
 <span class="badge badge-blue">28 keys · 4 cols × 3 rows + 2 thumbs</span>
 <span class="badge badge-purple">Inherits from Cadence v1.11.1</span>
@@ -81,8 +85,8 @@ a:hover{color:#0a4d99}
 
 <div class="status-box">
 <h3>⚠ Project status</h3>
-<p><strong>v0.5 is the initial public release of the Sonata specification.</strong> This document defines the Sonata Base Layer and explains how all other layers are inherited from <a href="https://github.com/one7two99/cadence">Cadence v1.11.1</a>.</p>
-<p style="margin-top:8px">Sonata currently has <strong>no dedicated Vial configuration</strong>. It is a layout specification, not a flash-ready build. The next milestone, <strong>v1.0</strong>, will be tagged when a dedicated Vial configuration exists. From that point on, documentation will track two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version.</p>
+<p><strong>v0.5.0 was the initial public release of the Sonata specification</strong> (current version: v0.5.1, a documentation update). This document defines the Sonata Base Layer and explains how all other layers are inherited from <a href="https://github.com/one7two99/cadence">Cadence v1.11.1</a>.</p>
+<p style="margin-top:8px">Sonata currently has <strong>no dedicated Vial configuration</strong>. It is a layout specification, not a flash-ready build. The next major milestone, <strong>v1.0</strong>, will be tagged when a dedicated Vial configuration exists. From that point on, documentation will track two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version.</p>
 </div>
 
 <h2 id="what-sonata-is">What Sonata is, and how it relates to Cadence</h2>
@@ -125,7 +129,7 @@ a:hover{color:#0a4d99}
 <p>The 28-key alpha grid, with Home Row Mods on the eight home positions:</p>
 
 <div class="kb">
-<div class="kb-half">
+<div class="kb-half kb-half-l">
 <div class="key-row">
 <div class="key"><span class="key-bdg key-bdg-layer">L11</span><span class="key-lbl">Z</span><span class="key-pos">pinky top</span></div>
 <div class="key"><span class="key-bdg key-bdg-layer">L7</span><span class="key-lbl">W</span><span class="key-pos">ring top</span></div>
@@ -145,11 +149,14 @@ a:hover{color:#0a4d99}
 <div class="key"><span class="key-lbl">D</span><span class="key-pos">idx bot</span></div>
 </div>
 <div class="key-row key-thumbs">
+<div class="key-spacer"></div>
+<div class="key-spacer"></div>
+<div class="key-spacer"></div>
 <div class="key key-access"><span class="key-bdg key-bdg-layer">L4/L5</span><span class="key-lbl">Spc</span><span class="key-pos">thumb outer</span></div>
 <div class="key key-access"><span class="key-bdg key-bdg-layer">L1</span><span class="key-lbl">Tab</span><span class="key-pos">thumb inner</span></div>
 </div>
 </div>
-<div class="kb-half">
+<div class="kb-half kb-half-r">
 <div class="key-row">
 <div class="key"><span class="key-lbl">L</span><span class="key-pos">idx top</span></div>
 <div class="key"><span class="key-bdg key-bdg-layer">L6</span><span class="key-lbl">Y</span><span class="key-pos">mid top</span></div>
@@ -171,6 +178,9 @@ a:hover{color:#0a4d99}
 <div class="key-row key-thumbs">
 <div class="key key-access"><span class="key-bdg key-bdg-layer">L3</span><span class="key-lbl">Ent</span><span class="key-pos">thumb inner</span></div>
 <div class="key key-access"><span class="key-bdg key-bdg-layer">L12</span><span class="key-lbl">Bsp</span><span class="key-pos">thumb outer</span></div>
+<div class="key-spacer"></div>
+<div class="key-spacer"></div>
+<div class="key-spacer"></div>
 </div>
 </div>
 </div>
@@ -286,12 +296,25 @@ a:hover{color:#0a4d99}
 
 <h2 id="versioning">Versioning</h2>
 
-<p>This is <strong>v0.5</strong>, the initial public release. Sonata uses a <code>0.x</code> series during the specification phase. The next milestone is <strong>v1.0</strong>, tagged when a dedicated Vial configuration exists.</p>
+<p>The current release is <strong>v0.5.1</strong>. Sonata uses a <code>0.x</code> series during the specification phase. The next major milestone is <strong>v1.0</strong>, tagged when a dedicated Vial configuration exists.</p>
+
+<h3>Versioning policy</h3>
+
+<table>
+<thead><tr><th>Change type</th><th>Bump</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Documentation update (text, diagrams, fixes)</td><td>Patch</td><td>v0.5.0 → v0.5.1</td></tr>
+<tr><td>Configuration change (Base Layer, triggers, HRM)</td><td>Minor</td><td>v0.5.0 → v0.6.0</td></tr>
+<tr><td>Dedicated Vial configuration available</td><td>Major</td><td>v0.x.y → v1.0.0</td></tr>
+</tbody>
+</table>
+
+<p><strong>v0.5.0</strong> was the initial public release. <strong>v0.5.1</strong> (this version) is a documentation update — the Base Layer keyboard visualisation now correctly places the thumb keys (Spc/Tab on the left, Ent/Bsp on the right) below the index columns, matching the physical Ferris Sweep geometry.</p>
 
 <p>From v1.0 onward, documentation will reference two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version (whose layer contents Sonata adopts).</p>
 
 <footer>
-Sonata v0.5 · MIT License · 2026 · one7two99<br/>
+Sonata v0.5.1 · MIT License · 2026 · one7two99<br/>
 Companion to <a href="https://github.com/one7two99/cadence">Cadence</a> · Based on <a href="https://colemakmods.github.io/mod-dh/">Colemak-DH</a> by stevep99
 </footer>
 

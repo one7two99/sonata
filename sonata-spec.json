@@ -1,8 +1,8 @@
 {
   "meta": {
     "name": "Sonata",
-    "version": "0.5",
-    "release_type": "Initial public release — specification only",
+    "version": "0.5.1",
+    "release_type": "Documentation update — patch over v0.5.0 initial release",
     "status": "Feasibility study — no Vial configuration yet.",
     "tagline": "28 keys. Cadence's layer architecture, half a column lighter.",
     "author": "one7two99",
@@ -232,8 +232,15 @@
     "hardware_constraints_inherited": "Cadence's layer contents are designed to leave the inner column (G/M/B/V/J/K positions) free of layer content. This makes them directly compatible with Sonata's 28-key grid where the inner column does not exist physically."
   },
   "versioning_policy": {
-    "current": "v0.5 — initial public release. Specification only; no Vial configuration yet.",
-    "next_milestone": "Sonata moves to v1.0 when a dedicated Vial configuration exists. From v1.0 onward, documentation will track two version numbers: the Sonata version (referencing the Sonata-specific Base Layer state) and the inherited Cadence version (referencing the Cadence release whose layers Sonata inherits)."
+    "current": "v0.5.1 — documentation update over v0.5.0 initial release",
+    "scheme": {
+      "documentation_update": "Patch level — v0.5.0 → v0.5.1 (text, diagrams, fixes)",
+      "configuration_change": "Minor level — v0.5.0 → v0.6.0 (Base Layer, triggers, HRM)",
+      "vial_configuration_available": "Major level — v0.x.y → v1.0.0"
+    },
+    "v0_5_0_release": "Initial public release of the Sonata specification",
+    "v0_5_1_release": "Documentation update — Base Layer keyboard visualisation in index.html now correctly places thumb keys (Spc/Tab on the left, Ent/Bsp on the right) below the index columns, matching physical Ferris Sweep geometry.",
+    "next_milestone": "v1.0 — tagged when a dedicated Vial configuration exists. From v1.0 onward, documentation will track two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version."
   },
   "compatibility_notes": {
     "muscle_memory_transfer": "A user proficient with Cadence on Ferris Sweep can move to Sonata hardware (or run Sonata on Sweep with unprogrammed inner column) without retraining the layer-trigger fingers. The same physical position activates the same layer. Only the alpha grid differs — the seven letters that occupy off-home positions on Cadence's outer column (Q, P, B / J, ', K) are not present on Sonata's base, but they are reachable on L1 Overflow (X, Q) or remain in their alpha positions for letters that fit Sonata's 4-column grid.",
