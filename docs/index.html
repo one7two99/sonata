@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sonata v0.5 — Base Layer Specification</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.65;color:#1a1a1a;background:#fbfaf7}
+.page{max-width:960px;margin:0 auto;padding:0 32px 80px}
+.hero{padding:52px 0 36px;border-bottom:1px solid #e8e6e0;margin-bottom:44px}
+.hero-top{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+.hero h1{font-size:36px;font-weight:800;letter-spacing:1px;color:#0e2a4a}
+.tagline{font-size:14px;color:#5a6478;margin-top:4px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.badge{display:inline-block;font-size:12px;padding:4px 10px;border-radius:14px;font-weight:600;letter-spacing:0.3px}
+.badge-amber{background:#FAEEDA;color:#633806;border:1px solid #EF9F27}
+.badge-blue{background:#E6F1FB;color:#0C447C;border:1px solid #85B7EB}
+.badge-green{background:#E1F5EE;color:#085041;border:1px solid #5DCAA5}
+.badge-purple{background:#F0E8F5;color:#4B2670;border:1px solid #B796D9}
+.badge-gray{background:#EDEDEF;color:#444;border:1px solid #C5C5CC}
+blockquote{font-style:italic;color:#5a6478;border-left:3px solid #c8d2e0;padding:6px 14px;margin:18px 0;font-size:14.5px}
+h2{font-size:22px;font-weight:700;color:#0e2a4a;margin:36px 0 16px;padding-bottom:8px;border-bottom:1px solid #e8e6e0}
+h3{font-size:17px;font-weight:600;color:#1a3050;margin:24px 0 10px}
+h4{font-size:15px;font-weight:600;color:#3a4a60;margin:18px 0 6px}
+p{margin:8px 0}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin:4px 0}
+code{font-family:"JetBrains Mono",Consolas,monospace;font-size:13.5px;background:#eef0f3;padding:1px 6px;border-radius:4px;color:#0e2a4a}
+table{border-collapse:collapse;font-size:14px;margin:14px 0;width:100%}
+th{text-align:left;padding:8px 12px;background:#f3f1ec;border-bottom:2px solid #d8d6cf;font-weight:600;color:#1a3050}
+td{padding:7px 12px;border-bottom:1px solid #ece9e1}
+.note{background:#E6F1FB;border-left:3px solid #85B7EB;padding:10px 16px;border-radius:0 8px 8px 0;font-size:14px;margin:14px 0;color:#0C447C}
+.design-box{background:#fff;border:1px solid #E8E6E0;border-radius:10px;padding:20px 22px;margin:14px 0}
+.status-box{background:#fff8ee;border:1px solid #f0d59c;border-left:5px solid #d9a93b;border-radius:8px;padding:18px 22px;margin:24px 0;color:#5C3D00}
+.status-box h3{margin-top:0;color:#5C3D00;font-size:16px}
+.kb{display:flex;justify-content:space-between;gap:32px;margin:18px 0;font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px}
+.kb-half{display:flex;flex-direction:column;gap:6px}
+.key-row{display:flex;gap:6px;justify-content:center}
+.key{position:relative;width:62px;height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border:1.5px solid #c5cad4;border-radius:8px;color:#1a3050;font-weight:600}
+.key-bdg{position:absolute;top:-7px;font-size:9px;padding:1px 5px;border-radius:7px;font-weight:700;letter-spacing:0.3px}
+.key-bdg-td{left:-5px;background:#E1F5EE;color:#085041;border:1px solid #5DCAA5}
+.key-bdg-mod{right:-5px;background:#F0E8F5;color:#4B2670;border:1px solid #B796D9}
+.key-bdg-layer{right:-5px;background:#FAEEDA;color:#633806;border:1px solid #EF9F27}
+.key-lbl{font-size:14px;color:#0e2a4a}
+.key-pos{font-size:9.5px;color:#7a8090;margin-top:1px;font-weight:500}
+.key-thumbs{margin-top:8px}
+.key-access{background:#FFFAF0;border-color:#EFC480}
+footer{margin-top:60px;padding-top:24px;border-top:1px solid #e8e6e0;font-size:13px;color:#7a8090;text-align:center}
+footer a{color:#5a6478;text-decoration:underline}
+a{color:#0e6dd1;text-decoration:underline}
+a:hover{color:#0a4d99}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hero">
+<div class="hero-top">
+<svg width="56" height="56" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<rect width="400" height="400" rx="52" fill="#0e2a4a"/>
+<text x="200" y="225" font-family="-apple-system,sans-serif" font-size="48" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">SONATA</text>
+<text x="200" y="280" font-family="-apple-system,sans-serif" font-size="22" font-weight="400" fill="#85B7EB" text-anchor="middle" letter-spacing="1">28</text>
+</svg>
+<div>
+<h1>Sonata</h1>
+<div class="tagline">28 keys. Cadence's layer architecture, half a column lighter.</div>
+</div>
+</div>
+<div class="badges">
+<span class="badge badge-blue">v0.5</span>
+<span class="badge badge-green">Initial release</span>
+<span class="badge badge-blue">28 keys · 4 cols × 3 rows + 2 thumbs</span>
+<span class="badge badge-purple">Inherits from Cadence v1.11.1</span>
+<span class="badge badge-amber">Specification only</span>
+<a href="https://github.com/one7two99/sonata" class="badge badge-gray" style="text-decoration:none">★ View on GitHub</a>
+</div>
+<blockquote style="margin-top:18px"><em>Sonata (n.): a complete musical form — theme, development, resolution.</em></blockquote>
+</div>
+
+<div class="status-box">
+<h3>⚠ Project status</h3>
+<p><strong>v0.5 is the initial public release of the Sonata specification.</strong> This document defines the Sonata Base Layer and explains how all other layers are inherited from <a href="https://github.com/one7two99/cadence">Cadence v1.11.1</a>.</p>
+<p style="margin-top:8px">Sonata currently has <strong>no dedicated Vial configuration</strong>. It is a layout specification, not a flash-ready build. The next milestone, <strong>v1.0</strong>, will be tagged when a dedicated Vial configuration exists. From that point on, documentation will track two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version.</p>
+</div>
+
+<h2 id="what-sonata-is">What Sonata is, and how it relates to Cadence</h2>
+
+<p>Sonata is built around two strict ergonomic constraints:</p>
+<ol>
+<li><strong>No lateral inward movement of the index fingers</strong> — drop the inner column entirely.</li>
+<li><strong>Thumbs only move outward, never inward</strong> — keyboard layouts often expect the thumb to push laterally toward the keyboard centre, which is biomechanically awkward.</li>
+</ol>
+
+<p>Both constraints proved viable on a 28-key layout, and the design lessons that emerged carried over into Cadence:</p>
+
+<div class="design-box">
+<h4>Sonata's contributions to Cadence</h4>
+<ul>
+<li><strong>The L1 Overflow + International concept</strong> — the design pattern of putting low-frequency letters (X, Q) plus international characters (umlauts, ß, €) on a single thumb-activated layer originated in Sonata's overflow-letter problem. Cadence adopted it.</li>
+<li><strong>The L12 Symbol layer redesign</strong> — Sonata's tighter constraints (4 columns instead of 5) forced a frequency-and-position-quality based symbol layout that Cadence then adopted. The L12 specification is shared between the two projects.</li>
+<li><strong>Validation of the thumb-outward-only principle</strong> — Cadence's thumb-trigger conventions (<code>Spc tap+hold</code> for Mouse, <code>Tab-hold</code> for Overflow) honour Sonata's outward-only thumb constraint.</li>
+</ul>
+</div>
+
+<p>In other words: <strong>Sonata supplied the design ideas, Cadence's iterative work refined them into a production layout, and Sonata now inherits the refined result back.</strong> A clean cycle.</p>
+
+<h2 id="family">The Family</h2>
+
+<table>
+<thead><tr><th>Project</th><th>Keys</th><th>Hardware</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/one7two99/cadence"><strong>Cadence</strong></a></td><td>34</td><td>Ferris Sweep</td><td>Daily driver, actively maintained</td></tr>
+<tr><td><strong>Sonata</strong> <em>(this project)</em></td><td>28</td><td>dedicated 28-key, or Sweep with unprogrammed inner column</td><td>Specification, initial release</td></tr>
+<tr><td><a href="https://github.com/one7two99/coda">Coda</a></td><td>22</td><td>dedicated 22-key</td><td>Concept-stage parallel exploration (independent design, not Cadence-aligned)</td></tr>
+<tr><td><a href="https://github.com/one7two99/cadenza">Cadenza</a> <em>(archived)</em></td><td>36</td><td>Corne Choc</td><td>Predecessor, archived in favour of Cadence</td></tr>
+</tbody>
+</table>
+
+<p>Cadence and Sonata share the same layer architecture and trigger philosophy. Coda is a separate design exploration with its own layer system. Cadenza is the predecessor that started the family.</p>
+
+<h2 id="base-layer">The Sonata Base Layer</h2>
+
+<p>The 28-key alpha grid, with Home Row Mods on the eight home positions:</p>
+
+<div class="kb">
+<div class="kb-half">
+<div class="key-row">
+<div class="key"><span class="key-bdg key-bdg-layer">L11</span><span class="key-lbl">Z</span><span class="key-pos">pinky top</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L7</span><span class="key-lbl">W</span><span class="key-pos">ring top</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L6</span><span class="key-lbl">G</span><span class="key-pos">mid top</span></div>
+<div class="key"><span class="key-lbl">M</span><span class="key-pos">idx top</span></div>
+</div>
+<div class="key-row">
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">⌘</span><span class="key-lbl">A</span><span class="key-pos">pinky home</span></div>
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">⌥</span><span class="key-lbl">R</span><span class="key-pos">ring home</span></div>
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">⌃</span><span class="key-lbl">S</span><span class="key-pos">mid home</span></div>
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">⇧</span><span class="key-lbl">T</span><span class="key-pos">idx home</span></div>
+</div>
+<div class="key-row">
+<div class="key"><span class="key-bdg key-bdg-layer">L8</span><span class="key-lbl">V</span><span class="key-pos">pinky bot</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L9</span><span class="key-lbl">C</span><span class="key-pos">ring bot</span></div>
+<div class="key"><span class="key-lbl">U</span><span class="key-pos">mid bot</span></div>
+<div class="key"><span class="key-lbl">D</span><span class="key-pos">idx bot</span></div>
+</div>
+<div class="key-row key-thumbs">
+<div class="key key-access"><span class="key-bdg key-bdg-layer">L4/L5</span><span class="key-lbl">Spc</span><span class="key-pos">thumb outer</span></div>
+<div class="key key-access"><span class="key-bdg key-bdg-layer">L1</span><span class="key-lbl">Tab</span><span class="key-pos">thumb inner</span></div>
+</div>
+</div>
+<div class="kb-half">
+<div class="key-row">
+<div class="key"><span class="key-lbl">L</span><span class="key-pos">idx top</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L6</span><span class="key-lbl">Y</span><span class="key-pos">mid top</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L7</span><span class="key-lbl">P</span><span class="key-pos">ring top</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L11</span><span class="key-lbl">J</span><span class="key-pos">pinky top</span></div>
+</div>
+<div class="key-row">
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">⇧</span><span class="key-lbl">N</span><span class="key-pos">idx home</span></div>
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">⌃</span><span class="key-lbl">E</span><span class="key-pos">mid home</span></div>
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">AltGr</span><span class="key-lbl">I</span><span class="key-pos">ring home</span></div>
+<div class="key"><span class="key-bdg key-bdg-td">TD</span><span class="key-bdg key-bdg-mod">⌘</span><span class="key-lbl">O</span><span class="key-pos">pinky home</span></div>
+</div>
+<div class="key-row">
+<div class="key"><span class="key-lbl">H</span><span class="key-pos">idx bot</span></div>
+<div class="key"><span class="key-lbl">F</span><span class="key-pos">mid bot</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L9</span><span class="key-lbl">B</span><span class="key-pos">ring bot</span></div>
+<div class="key"><span class="key-bdg key-bdg-layer">L8</span><span class="key-lbl">K</span><span class="key-pos">pinky bot</span></div>
+</div>
+<div class="key-row key-thumbs">
+<div class="key key-access"><span class="key-bdg key-bdg-layer">L3</span><span class="key-lbl">Ent</span><span class="key-pos">thumb inner</span></div>
+<div class="key key-access"><span class="key-bdg key-bdg-layer">L12</span><span class="key-lbl">Bsp</span><span class="key-pos">thumb outer</span></div>
+</div>
+</div>
+</div>
+
+<p style="font-size:13px;color:#5a6478;text-align:center;margin-top:12px"><em>Badges show the layer triggered when each key is held. <code>TD</code> = Tap Dance (tap = letter, hold = modifier or layer).</em></p>
+
+<h3>Home Row Mods</h3>
+
+<table>
+<thead><tr><th>Position</th><th>Tap</th><th>Hold</th><th>Term</th></tr></thead>
+<tbody>
+<tr><td>L pinky home</td><td>A</td><td>Meta / Cmd / GUI</td><td>250 ms</td></tr>
+<tr><td>L ring home</td><td>R</td><td>Alt / Option</td><td>200 ms</td></tr>
+<tr><td>L mid home</td><td>S</td><td>Ctrl</td><td>200 ms</td></tr>
+<tr><td>L idx home</td><td>T</td><td>Shift</td><td>200 ms</td></tr>
+<tr><td>R idx home</td><td>N</td><td>Shift</td><td>200 ms</td></tr>
+<tr><td>R mid home</td><td>E</td><td>Ctrl</td><td>200 ms</td></tr>
+<tr><td>R ring home</td><td>I</td><td>AltGr</td><td>200 ms</td></tr>
+<tr><td>R pinky home</td><td>O</td><td>Meta / Cmd / GUI</td><td>250 ms</td></tr>
+</tbody>
+</table>
+
+<p>Identical to Cadence v1.11.1 — bilateral Meta+Alt is cross-hand, avoiding same-hand HRM conflicts.</p>
+
+<div class="note">
+<strong>Overflow letters X and Q</strong> are not on the Base Layer. They are reachable on L1 Overflow + International at the same positions as in Cadence: <strong>X</strong> on R_ring_home (I-position), <strong>Q</strong> on R_mid_home (E-position).
+</div>
+
+<p>The alpha grid was optimised for SFB rate under the no-inner-column constraint. It is <strong>not derivable by removing letters from Cadence's grid</strong> — several letters are repositioned to columns they don't occupy in Cadence.</p>
+
+<h2 id="triggers">Layer triggers — same physical positions as Cadence</h2>
+
+<p>The key design decision: layer triggers occupy the <strong>same physical positions as in Cadence v1.11.1</strong> — same finger, same row — even though the letter on that position differs. A user proficient with Cadence can move to Sonata hardware without retraining the layer-trigger fingers.</p>
+
+<h3>Thumb triggers (1:1 identical to Cadence)</h3>
+
+<table>
+<thead><tr><th>Thumb</th><th>Tap</th><th>Hold</th><th>Tap+Hold</th></tr></thead>
+<tbody>
+<tr><td>Spc</td><td>Space</td><td>→ L4 Navigation</td><td>→ L5 Mouse</td></tr>
+<tr><td>Tab</td><td>Tab</td><td>→ L1 Overflow + International</td><td>—</td></tr>
+<tr><td>Ent</td><td>Enter</td><td>→ L3 Numbers</td><td>—</td></tr>
+<tr><td>Bsp</td><td>Backspace</td><td>→ L12 Symbols</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h3>Bilateral letter triggers — same positions, different letters</h3>
+
+<table>
+<thead><tr><th>Layer</th><th>Position</th><th>Sonata letters</th><th>Cadence letters at same positions</th></tr></thead>
+<tbody>
+<tr><td>L6 Fn + Media</td><td>mid top</td><td>Hold <strong>G</strong> or <strong>Y</strong></td><td>F + U</td></tr>
+<tr><td>L7 Code &amp; CLI</td><td>ring top</td><td>Hold <strong>W</strong> or <strong>P</strong></td><td>W + Y</td></tr>
+<tr><td>L8 Tiling WM</td><td>pinky bot</td><td>Hold <strong>V</strong> or <strong>K</strong></td><td>Z + /</td></tr>
+<tr><td>L9 Brackets</td><td>ring bot</td><td>Hold <strong>C</strong> or <strong>B</strong></td><td>X + .</td></tr>
+<tr><td>L11 Firmware Control</td><td>pinky top</td><td>Long-hold (500 ms) <strong>Z</strong> or <strong>J</strong></td><td>Q + '</td></tr>
+</tbody>
+</table>
+
+<p>The trigger position is what matters for muscle memory, not the letter on the key. The same finger doing the same hold motion activates the same layer on either keyboard.</p>
+
+<h2 id="layers">Layer reference — see Cadence</h2>
+
+<p>All layer contents (what each key produces while a layer is active) are inherited 1:1 from Cadence v1.11.1. This documentation does not duplicate that information.</p>
+
+<p>For the complete layer reference, see <a href="https://github.com/one7two99/cadence">Cadence's documentation</a>:</p>
+
+<table>
+<thead><tr><th>Layer</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><strong>L1 Overflow + International</strong></td><td>Umlauts (ä/ö/ü), ß, €, dead-key fallback, X and Q overflow letters</td></tr>
+<tr><td><strong>L3 Numbers</strong></td><td>Numpad layout</td></tr>
+<tr><td><strong>L4 Navigation</strong></td><td>Arrows, word-skip, page navigation</td></tr>
+<tr><td><strong>L5 Mouse</strong></td><td>Pointer, scroll, mouse buttons</td></tr>
+<tr><td><strong>L6 Fn + Media</strong></td><td>F1–F12 plus media controls</td></tr>
+<tr><td><strong>L7 Code &amp; CLI</strong></td><td>Shell operators, path navigation, expansion macros</td></tr>
+<tr><td><strong>L8 Tiling WM</strong></td><td>Workspaces 1–10, focus, window movement</td></tr>
+<tr><td><strong>L9 Brackets</strong></td><td>Bilateral mirror of bracket pairs as Tap Dance, App/Menu on outer thumbs</td></tr>
+<tr><td><strong>L10 Clipboard</strong></td><td>Present in firmware, no trigger by user choice</td></tr>
+<tr><td><strong>L11 Firmware Control</strong></td><td><code>QK_BOOT</code> and <code>QK_REBOOT</code>, safety-gated by long-hold</td></tr>
+<tr><td><strong>L12 Symbols</strong></td><td>Frequency-and-strength symbol layout, specification shared with Cadence</td></tr>
+</tbody>
+</table>
+
+<p>Cadence's layer contents are designed to leave the inner column (G/M/B/V/J/K positions in Cadence) free of layer content. This is what makes them directly compatible with Sonata's 28-key grid where the inner column doesn't exist physically.</p>
+
+<h2 id="hardware">Hardware</h2>
+
+<p>Sonata can run on two hardware options:</p>
+
+<div class="design-box">
+<h4>Option 1 — Dedicated 28-key split</h4>
+<p>A custom PCB with exactly 28 keys: 4 finger columns × 3 rows × 2 sides + 2 thumbs × 2 sides. No commercial off-the-shelf 28-key board exists with this exact geometry; this would be a custom build.</p>
+</div>
+
+<div class="design-box">
+<h4>Option 2 — Ferris Sweep with unprogrammed inner column</h4>
+<p>The Ferris Sweep has 34 keys (5 columns per side + 2 thumbs per side). Sonata can run on Sweep hardware by leaving the inner column physical keys (5th column each side: G, M, B, V, J, K positions on Cadence) <strong>unprogrammed</strong> — they exist physically but carry <code>KC_NO</code> and produce no output. The remaining 28 keys behave identically to a dedicated 28-key build.</p>
+<p style="margin-top:8px">This is the practical option for trying Sonata without commissioning custom hardware.</p>
+</div>
+
+<h2 id="why">Why Sonata exists alongside Cadence</h2>
+
+<p>If Cadence is the daily driver, what's the point of Sonata?</p>
+
+<ul>
+<li><strong>Design-research artifact.</strong> Sonata is the proof that the constraints (no inner column, thumbs outward only) work in practice. Cadence is the productive realisation; Sonata is the source experiment.</li>
+<li><strong>Migration path for minimalists.</strong> Users who reach Cadence and want even less hardware have a documented path: same layers, same trigger fingers, smaller alpha grid.</li>
+<li><strong>Cross-hardware muscle memory.</strong> A user can in principle keep Cadence at one workstation and Sonata at another — same layer triggers, same thumb behaviour, only the base alpha differs.</li>
+</ul>
+
+<p>Sonata is not a competitor to Cadence. It's the smaller variant of the same design family.</p>
+
+<h2 id="versioning">Versioning</h2>
+
+<p>This is <strong>v0.5</strong>, the initial public release. Sonata uses a <code>0.x</code> series during the specification phase. The next milestone is <strong>v1.0</strong>, tagged when a dedicated Vial configuration exists.</p>
+
+<p>From v1.0 onward, documentation will reference two version numbers: the Sonata version (Base Layer state) and the inherited Cadence version (whose layer contents Sonata adopts).</p>
+
+<footer>
+Sonata v0.5 · MIT License · 2026 · one7two99<br/>
+Companion to <a href="https://github.com/one7two99/cadence">Cadence</a> · Based on <a href="https://colemakmods.github.io/mod-dh/">Colemak-DH</a> by stevep99
+</footer>
+
+</div>
+</body>
+</html>

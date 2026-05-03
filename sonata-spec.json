@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "name": "Sonata",
+    "version": "0.5",
+    "release_type": "Initial public release — specification only",
+    "status": "Feasibility study — no Vial configuration yet.",
+    "tagline": "28 keys. Cadence's layer architecture, half a column lighter.",
+    "author": "one7two99",
+    "license": "MIT",
+    "documentation_scope": "This file specifies the Sonata Base Layer only. All other layer contents (L1 through L12) are inherited 1:1 from Cadence v1.11.1. See https://github.com/one7two99/cadence for the full layer reference.",
+    "compatible_with": "Cadence v1.11.1 layer architecture"
+  },
+  "design_philosophy": {
+    "origin": "Sonata is a feasibility study built around two strict ergonomic constraints: (1) no lateral inward movement of the index fingers (no inner column), (2) thumbs only move outward, never inward. Both constraints proved viable on a 28-key layout.",
+    "contributions_to_cadence": [
+      "L1 Overflow + International concept: the design pattern of putting low-frequency letters (X, Q) plus international characters (umlauts, ß, €) on a single thumb-activated layer originated in Sonata's overflow-letter problem.",
+      "L12 Symbol layer redesign: Sonata's tighter constraints (4 columns instead of 5) forced a frequency-and-position-quality based symbol layout that Cadence then adopted. The L12 specification is shared between Sonata and Cadence.",
+      "Validation of thumb-outward-only principle: Cadence's thumb-trigger conventions (Spc tap+hold for Mouse, Tab-hold for Overflow) honour Sonata's outward-only thumb constraint."
+    ],
+    "relationship_to_cadence": "Sonata inherits all layer contents from Cadence v1.11.1. The only Sonata-specific element is the Base Layer alpha grid, optimised for SFB on the 28-key constraint. Layer triggers occupy the same physical positions as in Cadence — same finger, same row — so muscle memory transfers without retraining when switching between hardware.",
+    "hardware_options": [
+      "Dedicated 28-key split keyboard (custom PCB)",
+      "Ferris Sweep with the inner column left unprogrammed (the inner column keys exist physically but carry KC_NO)"
+    ]
+  },
+  "physical_layout": {
+    "total_keys": 28,
+    "structure": "4 finger columns × 3 rows × 2 sides + 2 thumbs × 2 sides",
+    "missing_relative_to_cadence": "the inner column (5th column on each side) — present in Cadence as G/M plus B/V/J/K, absent in Sonata",
+    "position_ids": [
+      "L_pinky_top",
+      "L_ring_top",
+      "L_mid_top",
+      "L_idx_top",
+      "L_pinky_home",
+      "L_ring_home",
+      "L_mid_home",
+      "L_idx_home",
+      "L_pinky_bot",
+      "L_ring_bot",
+      "L_mid_bot",
+      "L_idx_bot",
+      "L_thumb_outer",
+      "L_thumb_inner",
+      "R_thumb_inner",
+      "R_thumb_outer",
+      "R_idx_top",
+      "R_mid_top",
+      "R_ring_top",
+      "R_pinky_top",
+      "R_idx_home",
+      "R_mid_home",
+      "R_ring_home",
+      "R_pinky_home",
+      "R_idx_bot",
+      "R_mid_bot",
+      "R_ring_bot",
+      "R_pinky_bot"
+    ]
+  },
+  "base_layer": {
+    "L_pinky_top": "Z",
+    "L_ring_top": "W",
+    "L_mid_top": "G",
+    "L_idx_top": "M",
+    "L_pinky_home": "A",
+    "L_ring_home": "R",
+    "L_mid_home": "S",
+    "L_idx_home": "T",
+    "L_pinky_bot": "V",
+    "L_ring_bot": "C",
+    "L_mid_bot": "U",
+    "L_idx_bot": "D",
+    "L_thumb_outer": "Spc",
+    "L_thumb_inner": "Tab",
+    "R_thumb_inner": "Ent",
+    "R_thumb_outer": "Bsp",
+    "R_idx_top": "L",
+    "R_mid_top": "Y",
+    "R_ring_top": "P",
+    "R_pinky_top": "J",
+    "R_idx_home": "N",
+    "R_mid_home": "E",
+    "R_ring_home": "I",
+    "R_pinky_home": "O",
+    "R_idx_bot": "H",
+    "R_mid_bot": "F",
+    "R_ring_bot": "B",
+    "R_pinky_bot": "K",
+    "diagram_ascii": [
+      "Z W G M | L Y P J",
+      "A R S T | N E I O",
+      "V C U D | H F B K",
+      "    Spc Tab | Ent Bsp"
+    ],
+    "overflow_letters_on_L1": {
+      "X": "R_ring_home (I-position) on L1 — same as Cadence",
+      "Q": "R_mid_home (E-position) on L1 — same as Cadence"
+    }
+  },
+  "home_row_mods": {
+    "notation": "Each home-row position is a Tap Dance: tap = letter, hold = modifier",
+    "left_hand": {
+      "L_pinky_home": {
+        "tap": "A",
+        "hold": "Meta / Cmd / GUI",
+        "term_ms": 250
+      },
+      "L_ring_home": {
+        "tap": "R",
+        "hold": "Alt / Option",
+        "term_ms": 200
+      },
+      "L_mid_home": {
+        "tap": "S",
+        "hold": "Ctrl",
+        "term_ms": 200
+      },
+      "L_idx_home": {
+        "tap": "T",
+        "hold": "Shift",
+        "term_ms": 200
+      }
+    },
+    "right_hand": {
+      "R_idx_home": {
+        "tap": "N",
+        "hold": "Shift",
+        "term_ms": 200
+      },
+      "R_mid_home": {
+        "tap": "E",
+        "hold": "Ctrl",
+        "term_ms": 200
+      },
+      "R_ring_home": {
+        "tap": "I",
+        "hold": "AltGr",
+        "term_ms": 200
+      },
+      "R_pinky_home": {
+        "tap": "O",
+        "hold": "Meta / Cmd / GUI",
+        "term_ms": 250
+      }
+    },
+    "design_notes": "Identical to Cadence v1.11.1. Bilateral Meta+Alt is cross-hand (A-hold + I-hold or O-hold + R-hold), avoiding same-hand HRM conflicts. Tipping terms 250ms for ring/pinky and 200ms for mid/index reflect per-finger speed differences."
+  },
+  "layer_triggers": {
+    "notation": "Position-based mapping. Triggers occupy the same physical positions as in Cadence v1.11.1 — same finger, same row — even though the letter on that position differs from Cadence's grid. This preserves muscle memory across hardware.",
+    "thumb_triggers": {
+      "L_thumb_outer (Spc)": {
+        "tap": "Space",
+        "hold": "→ L4 Navigation",
+        "tap_then_hold": "→ L5 Mouse",
+        "notes": "Spc tap+hold pattern carried over from Cadence v1.11. Resolves Home Row Mod blocking that occurs with bilateral letter-pair triggers for Mouse."
+      },
+      "L_thumb_inner (Tab)": {
+        "tap": "Tab",
+        "hold": "→ L1 Overflow + International",
+        "notes": "Tab as Tap-Dance carrier carried over from Cadence v1.11. International is the most-used special-character layer when writing German prose; thumb-hold gives maximum accessibility."
+      },
+      "R_thumb_inner (Ent)": {
+        "tap": "Enter",
+        "hold": "→ L3 Numbers"
+      },
+      "R_thumb_outer (Bsp)": {
+        "tap": "Backspace",
+        "hold": "→ L12 Symbols"
+      }
+    },
+    "bilateral_letter_triggers": {
+      "notation": "Hold either of the two letters listed below to activate the layer. Triggers are finger-symmetric: same finger on both hands, same row.",
+      "L6_Fn_Media": {
+        "trigger_positions": "L_mid_top + R_mid_top",
+        "sonata_letters": "G + Y",
+        "cadence_letters_at_same_positions": "F + U",
+        "description": "Hold G or Hold Y to activate L6 Fn + Media.",
+        "td_target": "MO(6)"
+      },
+      "L7_Code_CLI": {
+        "trigger_positions": "L_ring_top + R_ring_top",
+        "sonata_letters": "W + P",
+        "cadence_letters_at_same_positions": "W + Y",
+        "description": "Hold W or Hold P to activate L7 Code & CLI.",
+        "td_target": "MO(7)"
+      },
+      "L8_Tiling_WM": {
+        "trigger_positions": "L_pinky_bot + R_pinky_bot",
+        "sonata_letters": "V + K",
+        "cadence_letters_at_same_positions": "Z + /",
+        "description": "Hold V or Hold K to activate L8 Tiling WM.",
+        "td_target": "MO(8)"
+      },
+      "L9_Brackets": {
+        "trigger_positions": "L_ring_bot + R_ring_bot",
+        "sonata_letters": "C + B",
+        "cadence_letters_at_same_positions": "X + .",
+        "description": "Hold C or Hold B to activate L9 Brackets. App/Menu on L9 Spc-thumb and L9 Bsp-thumb (inherited from Cadence v1.11.1).",
+        "td_target": "MO(9)"
+      },
+      "L11_Firmware_Control": {
+        "trigger_positions": "L_pinky_top + R_pinky_top",
+        "sonata_letters": "Z + J",
+        "cadence_letters_at_same_positions": "Q + '",
+        "description": "Long-hold (500ms) Z or J to activate L11 Firmware Control. Deliberately uncomfortable to prevent accidental QK_BOOT or QK_REBOOT triggering.",
+        "td_target": "MO(11)",
+        "hold_term_ms": 500
+      }
+    },
+    "layers_without_trigger": {
+      "L2": "Deprecated in Cadence v1.11.1 (replaced by L12). Sonata mirrors this — L2 has no trigger.",
+      "L10": "Clipboard layer in Cadence has no trigger by user choice. Sonata mirrors this."
+    }
+  },
+  "layer_inheritance": {
+    "notation": "All layer contents (what each key produces while a layer is active) are inherited 1:1 from Cadence v1.11.1. This specification does not duplicate that information.",
+    "source_of_truth": "https://github.com/one7two99/cadence — see docs/index.html for the complete layer reference.",
+    "layers_inherited": {
+      "L1": "Overflow + International — umlauts, ß, €, dead-key fallback, X and Q overflow letters",
+      "L3": "Numbers — numpad layout",
+      "L4": "Navigation — arrows, word-skip, page navigation",
+      "L5": "Mouse — pointer, scroll, buttons",
+      "L6": "Fn + Media — F1-F12 plus media controls",
+      "L7": "Code & CLI — shell operators, path navigation, expansion macros",
+      "L8": "Tiling WM — workspaces 1-10, focus, window movement",
+      "L9": "Brackets — bilateral mirror of bracket pairs as Tap Dance, App/Menu on outer thumbs",
+      "L10": "Clipboard — present in firmware, no trigger by user choice",
+      "L11": "Firmware Control — QK_BOOT and QK_REBOOT, safety-gated by long-hold",
+      "L12": "Symbols — frequency-and-strength symbol layout, shared specification with Cadence"
+    },
+    "hardware_constraints_inherited": "Cadence's layer contents are designed to leave the inner column (G/M/B/V/J/K positions) free of layer content. This makes them directly compatible with Sonata's 28-key grid where the inner column does not exist physically."
+  },
+  "versioning_policy": {
+    "current": "v0.5 — initial public release. Specification only; no Vial configuration yet.",
+    "next_milestone": "Sonata moves to v1.0 when a dedicated Vial configuration exists. From v1.0 onward, documentation will track two version numbers: the Sonata version (referencing the Sonata-specific Base Layer state) and the inherited Cadence version (referencing the Cadence release whose layers Sonata inherits)."
+  },
+  "compatibility_notes": {
+    "muscle_memory_transfer": "A user proficient with Cadence on Ferris Sweep can move to Sonata hardware (or run Sonata on Sweep with unprogrammed inner column) without retraining the layer-trigger fingers. The same physical position activates the same layer. Only the alpha grid differs — the seven letters that occupy off-home positions on Cadence's outer column (Q, P, B / J, ', K) are not present on Sonata's base, but they are reachable on L1 Overflow (X, Q) or remain in their alpha positions for letters that fit Sonata's 4-column grid.",
+    "running_sonata_on_sweep": "On Ferris Sweep hardware, the inner column physical keys (5th column each side) carry KC_NO — they are present but do nothing. The remaining 28 keys behave identically to a dedicated 28-key build.",
+    "not_a_strict_subset_of_cadence": "Sonata's alpha grid (Z W G M / L Y P J on top, V C U D / H F B K on bottom) is the result of independent SFB optimisation under the no-pinky-column constraint. It is not derivable by removing letters from Cadence's grid — several letters are repositioned to columns they don't occupy in Cadence."
+  }
+}
